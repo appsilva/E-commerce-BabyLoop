@@ -1,17 +1,18 @@
 import React, { PureComponent } from 'react';
 
 // Components
-import Catalogo from './components/Catalogo';
+import Catalog from './components/Catalog';
+import NavBar from './components/NavBar';
 
-// Media
-import LOGO from './media/logo.png';
+// Styles
+import './App.css';
 
 export default class App extends PureComponent {
     render() {
         return (
             <div className="container">
-                <img src={ LOGO } alt="BabyLoop Logo" className="logo"  />
-                <Catalogo />
+                <NavBar />
+                <Catalog />
             </div>
         );
     }
