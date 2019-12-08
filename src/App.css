@@ -4,3 +4,9 @@
   margin: 0;
   text-align: center;
 }
+
+.loader {
+    width: 8rem;
+    padding-top: 8rem;
+    margin: 0 auto;
+}
