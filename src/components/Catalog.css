@@ -1,0 +1,16 @@
+.productList {
+    display: flex;
+    max-width: 90%;
+    margin: 4rem auto;
+    flex-wrap: wrap;
+}
+
+.product {
+    width: calc(100%/4);
+    padding: 2rem;
+    cursor: pointer;
+}
+
+.productImage {
+    max-width: 100%;
+}

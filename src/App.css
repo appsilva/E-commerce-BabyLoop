@@ -3,3 +3,9 @@
   height: 100%;
   margin: 0;
 }
+
+.loader {
+    width: 8rem;
+    padding-top: 8rem;
+    margin: 0 auto;
+}
