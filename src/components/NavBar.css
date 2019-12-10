@@ -1,7 +1,7 @@
 .nav {
     display: flex;
     width: 100%;
-    padding: 1rem 5.6rem;
+    padding: 1rem calc(4rem + ((100% - 38rem) / 20 * 2));
     align-items: center;
     border-bottom: 0.1rem solid #FDDCA6;
 }
@@ -11,11 +11,13 @@
 }
 
 .searchForm {
-    width: 80%;
+    width: 60%;
+    margin: 0 auto;
     text-align: center;
 }
 
 .searchInput {
+    width: 80%;
     height: 4.3rem;
     padding: 1.5rem;
     border: 0.1rem solid #777777;

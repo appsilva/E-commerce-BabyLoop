@@ -8,9 +8,82 @@
 .product {
     width: calc(100%/4);
     padding: 2rem;
+    font-size: 1.4rem;
     cursor: pointer;
 }
 
 .productImage {
     max-width: 100%;
+}
+
+.brandAndNameContainer {
+    display: flex;
+    flex-direction: column;
+    height: 6rem;
+    margin-top: 1.5rem;
+}
+
+.name {
+    font-weight: 600;
+    font-size: 1.4rem;
+    overflow: hidden;
+}
+
+.brandName {
+    font-weight: 400;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.priceContainer {
+    display: flex;
+    height: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.price {
+    font-size: 2.2rem;
+    padding-right: 1rem;
+    color: #713A45;
+}
+
+.marketPrice {
+    font-size: 1.6rem;
+    text-decoration: line-through;
+    line-height: 2;
+}
+
+.noResultsMessage {
+    margin-top: 4rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.addToBagButton {
+    width: 100%;
+    background-color: #F5B3BE;
+    color: #ffffff;
+    border-radius: 5rem;
+    cursor: pointer;
+    border: 2px solid #F5B3BE;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 1rem 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .product {
+      width: calc(100%/2);
+  }
+}
+
+@media (max-width: 375px) {
+  .productList {
+      flex-direction: column;
+  }
+
+  .product {
+      width: 100%;
+  }
 }

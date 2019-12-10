@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
 
 // Styles
 import './Catalog.css';
@@ -14,18 +15,13 @@ export default class Catalog extends PureComponent {
     }
 
     render() {
-        const { products = {} } = this.props;
-        const normalizedProductList = Array.isArray(products) ?
-            products :
-            [ products ];
+        const { products = [] } = this.props;
 
-        console.log({normalizedProductList});
-
-        return products ? (
+        return !isEmpty(products) ? (
             <div className="productList">
-                { normalizedProductList.map((product) => this.renderProduct(product)) }
+                { products.map((product) => this.renderProduct(product)) }
             </div>
-        ) : <p>Sem resultados...</p>;
+        ) : <p className="noResultsMessage">Sem resultados...</p>;
     }
 
     renderProduct(product = {}) {
@@ -38,8 +34,8 @@ export default class Catalog extends PureComponent {
                 name,
                 brand: {
                     name: brandName,
-                }
-            }
+                } = {}
+            } = {}
         } = product;
 
         return (
@@ -48,20 +44,20 @@ export default class Catalog extends PureComponent {
                     src={ get(product_pictures, '[0].picture.medium.url', '') }
                     className="productImage"
                     alt={ `product-${id}` } />
-                <p>{ name }</p>
-                <p>{ brandName }</p>
-                <span>
-                    <p>{ price }</p>
-                    <p>{ market_price }</p>
-                </span>
-                <button onClick={ this.handleAddToCartClick(id) }>Adicionar ao carrinho</button>
+                <div className="brandAndNameContainer">
+                    <span className="name">{ name }</span>
+                    <span className="brandName">{ brandName }</span>
+                </div>
+                <div className="priceContainer">
+                    <span className="price">{ price }€</span>
+                    <span className="marketPrice">{ market_price }€</span>
+                </div>
+                <button onClick={ () => this.handleAddToCartClick(id) } className="addToBagButton">Adicionar ao carrinho</button>
             </div>
         );
     }
 
-    handleAddToCartClick = (args) => {
-        console.log(args);
-
-
+    handleAddToCartClick = (id) => {
+        // Handle add to cart
     }
 }

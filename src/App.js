@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
 
 // Components
 import Catalog from './components/Catalog';
@@ -9,39 +10,54 @@ import Loader from 'react-loader-spinner';
 // Styles
 import './App.css';
 
-import { PRODUCTS_MOCK } from './utils/ProductsMock';
 const BASE_API_URL = 'https://babyloop.pt/api/v1/products/';
 
 export default class App extends PureComponent {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            searchResults: PRODUCTS_MOCK,
+            products: [],
+            searchResults: [],
             isLoading: true,
             error: false,
         };
     }
 
     componentDidMount() {
-        this.setState({ searchResults: this.getSearchResults() });
+        this.setState({ products: this.getProducts() });
     }
 
-    getSearchResults = (search = '') => {
+    getProducts = () => {
         this.setState({ isLoading: true });
 
-        fetch(`${BASE_API_URL}${search}`)
+        fetch(BASE_API_URL)
             .then((result) => result.json())
             .catch((e) => {
                 this.setState({ error: true, isLoading: false })
             })
             .then((data) => {
-                const searchResults = get(data, 'product') || data || [];
+                const products = get(data, 'product') || data || [];
 
-                console.log(data);
+                this.setState({ isLoading: false });
 
-                this.setState({ searchResults, isLoading: false });
+                products && this.setState({ products, searchResults: products });
             });
+    };
+
+    getSearchResults = (search = '') => {
+        const { products = [] } = this.state;
+        const normalizedSearch = search.toString().toLowerCase();
+        const normalizedProductList = Array.isArray(products) ?
+            products :
+            !isEmpty(Object.keys(products).filter((key) => key === 'error')) ?
+                [] :
+                [ products ];
+        const searchResults = normalizedProductList.filter((product) =>
+            product.base_product.name.toString().toLowerCase().includes(normalizedSearch) ||
+            product.base_product.description.toString().toLowerCase().includes(normalizedSearch));
+
+        this.setState({ searchResults: search === '' ? products : searchResults });
     };
 
     render() {
@@ -59,7 +75,7 @@ export default class App extends PureComponent {
                             height={80}
                             width={80} /> :
                         error ?
-                            <p>Ocorreu um erro... Tente novamente.</p> :
+                            <p className="errorMessage">Ocorreu um erro... Tente novamente.</p> :
                             <Catalog products={ searchResults }/>
                 }
             </div>
